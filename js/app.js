@@ -3147,14 +3147,14 @@ function scatteredSpace(bin)
 }
 
 // How good a finished layout is, as a score list (lower is better): games left over, then shelves used,
-// then how many boxes are hidden away in front rows, then how broken up the empty space on the used shelves is,
-// then how far boxes stick out past their shelves in total
+// then how broken up the empty space on the used shelves is,
+// then how far boxes stick out past their shelves in total, then how many boxes are hidden away in front rows
 function layoutScore(result)
 {
     let inFront = 0;
     let overhang = 0;
     let scattered = 0;
-
+    
     for (const bin of result.bins)
     {
         if (bin.blocks.length > 0)
@@ -3173,7 +3173,7 @@ function layoutScore(result)
         overhang += Math.max(0, item.block.z + item.block.d - item.shelf.depth);
     }
 
-    return [result.unplaced, result.shelvesUsed, inFront, Math.round(scattered), overhang];
+    return [result.unplaced, inFront, result.shelvesUsed, Math.round(scattered), overhang];
 }
 
 // A sort stops trying further layouts after this long, however many it had planned
